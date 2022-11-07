@@ -12,9 +12,9 @@ function App() {
 
 	return (
 		<div className="App">
-			{characters && (
-				<Test characters={characters} error={error} isPending={isPending} />
-			)}
+			{error && <div>{error}</div>}
+			{isPending && <div>Loading...</div>}
+			{characters && <Test characters={characters} />}
 		</div>
 	)
 }
