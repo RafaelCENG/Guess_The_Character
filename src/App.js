@@ -1,20 +1,34 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import './App.css'
-import AnimeCharacters from './components/AnimeCharacters'
-import Test from './components/Test'
-import useFetch from './useFetch'
+import Home from './components/Home'
 
 function App() {
-	const {
-		data: characters,
-		error,
-		isPending,
-	} = useFetch('https://api.jikan.moe/v4/anime/1/characters')
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState('')
+	const [characters, setCharacters] = useState([])
+
+	useEffect(() => {
+		axios
+			.get(`https://api.jikan.moe/v4/anime/1/characters`)
+			.then((res) => {
+				setLoading(false)
+				setCharacters(res.data.data)
+				setError('')
+			})
+			.catch((error) => {
+				setLoading(false)
+				setCharacters({})
+				setError('Something went wrong!')
+			})
+	}, [])
 
 	return (
-		<div className="App">
+		<div>
+			<h1>Guess The Character</h1>
 			{error && <div>{error}</div>}
-			{isPending && <div>Loading...</div>}
-			{characters && <Test characters={characters} />}
+			{loading && <div>Loading...</div>}
+			{characters && <Home characters={characters} />}
 		</div>
 	)
 }
