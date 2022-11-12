@@ -10,13 +10,15 @@ function App() {
 
 	useEffect(() => {
 		axios
-			.get(`https://api.jikan.moe/v4/anime/1/characters`)
+			.get(`https://api.jikan.moe/v4/characters`)
 			.then((res) => {
 				setLoading(false)
+				console.log(res.data.data)
+
 				const character = res.data.data.map((character) => ({
-					id: character.character.mal_id,
-					name: character.character.name,
-					imgUrl: character.character.images.jpg.image_url,
+					id: character.mal_id,
+					name: character.name,
+					imgUrl: character.images.jpg.image_url,
 					matched: false,
 				}))
 				setCharacters(character)

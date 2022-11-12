@@ -12,15 +12,17 @@ const Home = ({ characters, setCharacters }) => {
 	const [score, setScore] = useState(0)
 	const [showModal, setShowModal] = useState(false)
 	const [finished, setFinished] = useState(false)
-	const [startGame, setStartGame] = useState(false)
-	//const [allCharacters, setAllCharacters] = useState(characters)
-	//console.log('Test', characters)
-	//console.log('All characterS', allCharacters)
+	const [isShown, setIsShown] = useState(false)
 
 	const handleStartGame = () => {
-		setStartGame(true)
+		setIsShown(true)
+		setTurns(0)
+		setLives(3)
+		setScore(0)
+		setCharacters((prevCharacters) =>
+			prevCharacters.map((character) => ({ ...character, matched: false }))
+		)
 		findCharacter()
-		// setStartGame(current => !current)
 	}
 
 	const findCharacter = () => {
@@ -102,17 +104,10 @@ const Home = ({ characters, setCharacters }) => {
 		return
 	}, [choice, finished])
 
-	// start a new game automatically
-	// useEffect(() => {
-	// 	findCharacter()
-	// }, [])
-
-	//console.log(character)
-
 	return (
 		<div>
 			<button onClick={handleStartGame}>New Game</button>
-			{startGame && (
+			{isShown && (
 				<div>
 					<div>Solution : {randomCharacter.name}</div>
 					{randomCharacter && <Photo randomCharacter={randomCharacter} />}
