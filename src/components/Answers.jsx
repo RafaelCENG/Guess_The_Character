@@ -1,9 +1,4 @@
-const Answers = ({
-	shuffleAnswers,
-	randomCharacter,
-	character,
-	handleChoice,
-}) => {
+const Answers = ({ character, handleChoice }) => {
 	//console.log('Character', character)
 	//console.log('shuffleAnswers', shuffleAnswers)
 	//console.log('randomCharacter', randomCharacter)
