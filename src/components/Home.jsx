@@ -26,12 +26,10 @@ const Home = ({ characters, setCharacters }) => {
 	}
 
 	const findCharacter = () => {
-		console.log('All characterS', characters)
 		if (characters.length !== 0) {
 			// Check if we won or lost.
 			// Win means we found all the characters
 			// Lose we lost our 3 lives
-			console.log(characters.length)
 			if (characters.length === score || lives === 0) {
 				setFinished(true)
 				return
@@ -106,28 +104,35 @@ const Home = ({ characters, setCharacters }) => {
 
 	return (
 		<div>
-			<button onClick={handleStartGame}>New Game</button>
+			<div className="mt-6 text-center">
+				<button
+					className="btn mr-2 mb-2 rounded-lg bg-gradient-to-r from-red-400 via-red-500 to-red-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-red-500/50 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-red-300 dark:shadow-lg dark:shadow-red-800/80 dark:focus:ring-red-800"
+					onClick={handleStartGame}
+				>
+					New Game
+				</button>
+			</div>
+
 			{isShown && (
 				<div>
-					<div>Solution : {randomCharacter.name}</div>
 					{randomCharacter && <Photo randomCharacter={randomCharacter} />}
-					{
-						randomCharacter &&
+					<div className="grid grid-cols-2  gap-4 py-10 px-10">
+						{randomCharacter &&
 							shuffleAnswers.map((character) => (
 								<Answers
 									key={character.id}
 									character={character}
 									handleChoice={handleChoice}
 								/>
-							))
-						/* <Answers
-						shuffleAnswers={shuffleAnswers}
-						randomCharacter={randomCharacter}
-					/> */
-					}
-					<p>Turns : {turns}</p>
-					<p>Score : {score}</p>
-					<p>Lives : {lives}</p>
+							))}
+					</div>
+
+					<div className="flex justify-center ">
+						<p>Turns : {turns}</p>
+						<p>Score : {score}</p>
+						<p>Lives : {lives}</p>
+					</div>
+
 					{showModal && <Modal finished={finished} score={score} />}
 				</div>
 			)}

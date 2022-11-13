@@ -3,9 +3,12 @@ const Answers = ({ character, handleChoice }) => {
 		handleChoice(character)
 	}
 	return (
-		<div>
-			<div onClick={handleClick}>{character.name}</div>
-		</div>
+		<button
+			className="w-auto border-2 border-gray-300 bg-gray-100 p-6 text-2xl"
+			onClick={handleClick}
+		>
+			{character.name}
+		</button>
 	)
 }
 
