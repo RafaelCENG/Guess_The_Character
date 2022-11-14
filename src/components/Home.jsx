@@ -115,8 +115,15 @@ const Home = ({ characters, setCharacters }) => {
 
 			{isShown && (
 				<div>
+					<div className="flex justify-center space-x-10 ">
+						<p className="font-bold">Score: {score}</p>
+						<p className="font-bold text-red-900"> #{turns}</p>
+						<p className="font-bold italic">Lives: {lives}</p>
+					</div>
+
 					{randomCharacter && <Photo randomCharacter={randomCharacter} />}
-					<div className="grid grid-cols-2  gap-4 py-10 px-10">
+					<div className="flex flex-row flex-wrap justify-center gap-4 py-10 px-10">
+						{/* grid grid-cols-2  */}
 						{randomCharacter &&
 							shuffleAnswers.map((character) => (
 								<Answers
@@ -125,12 +132,6 @@ const Home = ({ characters, setCharacters }) => {
 									handleChoice={handleChoice}
 								/>
 							))}
-					</div>
-
-					<div className="flex justify-center ">
-						<p>Turns : {turns}</p>
-						<p>Score : {score}</p>
-						<p>Lives : {lives}</p>
 					</div>
 
 					{showModal && <Modal finished={finished} score={score} />}
