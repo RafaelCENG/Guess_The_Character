@@ -13,7 +13,11 @@ const Home = ({ characters, setCharacters }) => {
 	const [showModal, setShowModal] = useState(false)
 	const [finished, setFinished] = useState(false)
 	const [isShown, setIsShown] = useState(false)
+	const [newGameButton, setNewGameButton] = useState(false)
 
+	useEffect(() => {
+		handleStartGame()
+	}, [])
 	const handleStartGame = () => {
 		setIsShown(true)
 		setTurns(0)
@@ -90,12 +94,14 @@ const Home = ({ characters, setCharacters }) => {
 	// If finished true.
 	useEffect(() => {
 		if (finished) {
+			setNewGameButton(true)
 			console.log('congrats, you win!')
 			setTimeout(() => setShowModal(true), 1000)
 		}
 
 		if (lives === 0) {
 			console.log('Out of lives')
+			setNewGameButton(true)
 			setTimeout(() => setShowModal(true), 1000)
 		}
 
@@ -104,14 +110,16 @@ const Home = ({ characters, setCharacters }) => {
 
 	return (
 		<div>
-			<div className="mt-6 text-center">
-				<button
-					className="btn mr-2 mb-2 rounded-lg bg-gradient-to-r from-red-400 via-red-500 to-red-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-red-500/50 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-red-300 dark:shadow-lg dark:shadow-red-800/80 dark:focus:ring-red-800"
-					onClick={handleStartGame}
-				>
-					New Game
-				</button>
-			</div>
+			{newGameButton && (
+				<div className="mt-6 text-center">
+					<button
+						className="btn mr-2 mb-2 rounded-lg bg-gradient-to-r from-red-400 via-red-500 to-red-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-red-500/50 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-red-300 dark:shadow-lg dark:shadow-red-800/80 dark:focus:ring-red-800"
+						onClick={handleStartGame}
+					>
+						New Game
+					</button>
+				</div>
+			)}
 
 			{isShown && (
 				<div>
